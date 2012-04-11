@@ -16,7 +16,8 @@ self.port.on("show", function (preferences) {
 	self.updateWebappsTable(preferences.webapps);
 	
 	$("#add-button").click(function () {
-		var newPrefix = document.getElementById('new-prefix').value;
+//		var newPrefix = document.getElementById('new-prefix').value;
+		var newPrefix = "";
 		var newUrl = document.getElementById('new-url').value;
 		
 		/* create an event for the addon */
@@ -44,16 +45,22 @@ self.updateWebappsTable = function(webappsData)
 	$(".webapps-row").remove();
 	for (var i in webappsData) {
 		if ( webappsData[i].active ) {
-			isChecked = "checked='checked'";
+			switchIcon = "active";
 		} else {
-			isChecked = "";
+			switchIcon = "inactive";
 		}
 		var row = "<tr class='webapps-row'>"
-			+ "<td><input type='checkbox' id='active'" + i + "' " + isChecked + "/></td>"
-			+ "<td>" + webappsData[i].prefix + "</td>"
+			+ "<td><img id='active" + i + "' src='" + self.icons[switchIcon] + "'/></td>"
+//			+ "<td>" + webappsData[i].prefix + "</td>"
 			+ "<td>" + webappsData[i].url + "</td>"
 			+ "<td><img src='" + self.icons['delete'] + "' /></td>"
 			+ "</tr>"
 		$("#webapps-data").append(row);
+		id = "#active" + i;
+		$(id).click( function() {
+			var index = this.id.substr(6);
+			console.log("checkbox clicked: " + index);
+			self.port.emit("activity-changed", index);
+		});
 	}
 };
