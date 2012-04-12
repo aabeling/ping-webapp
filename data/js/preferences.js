@@ -5,8 +5,9 @@ self.port.on("show", function (preferences) {
 	if ( !preferences.refreshRate ) {
 		preferences.refreshRate = 60;
 	}
-	// TODO
-//	var refreshRateSelect = document.getElementById('refresh-rate-select');
+
+	console.log("refreshRate = " + preferences.refreshRate);
+	$('#refresh-rate-select').val(preferences.refreshRate);
 	
 	/* set the elements for the webapps data */
 	if ( !preferences.webapps ) {
@@ -26,6 +27,13 @@ self.port.on("show", function (preferences) {
 			console.log("transferring new webapp data: " + newPrefix + " : " + newUrl);
 			self.port.emit("new-webapp", { active: false, prefix: newPrefix, url: newUrl });
 		});
+		
+		$('#refresh-rate-select').change( function() {
+			var value = $(this).val();
+			console.log("transferring new refresh rate: " + value);
+			self.port.emit("refresh-rate-changed", value);
+		});
+		
 		self.initialized = true;
 		
 	}
