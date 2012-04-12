@@ -10,10 +10,11 @@ once you have installed the addon sdk
 for details).
 
 How to use it:
-- when installed an icon should show up in firefox' addon toolbar
+
+* when installed an icon should show up in firefox' addon toolbar
   showing a bell with a green arrow
-- on clicking the icon the preferences panel opens and closes
-- in the preferences panel 
+* on clicking the icon the preferences panel opens and closes
+* in the preferences panel 
 ** new ping urls can be added
 ** the refresh rate (for all urls) can be changed
 ** existing urls can be deleted by clicking on the delete icon
@@ -23,12 +24,11 @@ Firefox' error console shows what the addon is doing.
 
 Some notes about the current implementation:
 
-- it uses the firefox addon sdk
-- 
-- main.js contains the addon's main code. It manages the timer to ping the urls
+* it uses the firefox addon sdk
+* main.js contains the addon's main code. It manages the timer to ping the urls
   and provides event handlers for the communication with the preferences panel.
-- the preferences panel is implemented in data/content/preferences.html and
+* the preferences panel is implemented in data/content/preferences.html and
   data/js/preferences.js. The ui is not really good, but it works for me.
-- the add-on's icons are from http://www.famfamfam.com/lab/icons/silk/. Thanks for the great work!
+* the add-on's icons are from http://www.famfamfam.com/lab/icons/silk/. Thanks for the great work!
 
 
