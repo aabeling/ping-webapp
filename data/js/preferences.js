@@ -15,15 +15,20 @@ self.port.on("show", function (preferences) {
 	console.log("webapps.count: " + preferences.webapps.length);
 	self.updateWebappsTable(preferences.webapps);
 	
-	$("#add-button").click(function () {
-//		var newPrefix = document.getElementById('new-prefix').value;
-		var newPrefix = "";
-		var newUrl = document.getElementById('new-url').value;
+	if ( !self.initialized ) {
 		
-		/* create an event for the addon */
-		console.log("transferring new webapp data: " + newPrefix + " : " + newUrl);
-		self.port.emit("new-webapp", { active: false, prefix: newPrefix, url: newUrl });
-	});
+		$("#add-button").click(function () {
+//			var newPrefix = document.getElementById('new-prefix').value;
+			var newPrefix = "";
+			var newUrl = document.getElementById('new-url').value;
+			
+			/* create an event for the addon */
+			console.log("transferring new webapp data: " + newPrefix + " : " + newUrl);
+			self.port.emit("new-webapp", { active: false, prefix: newPrefix, url: newUrl });
+		});
+		self.initialized = true;
+		
+	}
 	
 });
 
@@ -53,7 +58,7 @@ self.updateWebappsTable = function(webappsData)
 			+ "<td><img id='active" + i + "' src='" + self.icons[switchIcon] + "'/></td>"
 //			+ "<td>" + webappsData[i].prefix + "</td>"
 			+ "<td>" + webappsData[i].url + "</td>"
-			+ "<td><img src='" + self.icons['delete'] + "' /></td>"
+			+ "<td><img id='delete" + i + "' src='" + self.icons['delete'] + "' /></td>"
 			+ "</tr>"
 		$("#webapps-data").append(row);
 		id = "#active" + i;
@@ -62,5 +67,12 @@ self.updateWebappsTable = function(webappsData)
 			console.log("checkbox clicked: " + index);
 			self.port.emit("activity-changed", index);
 		});
+		deleteId = "#delete" + i;
+		$(deleteId).click( function() {
+			var index = this.id.substr(6);
+			console.log("delete clicked: " + index);
+			self.port.emit("deleted", index);
+		});
 	}
 };
+
