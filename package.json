@@ -2,7 +2,7 @@
     "name": "ping-webapp",
     "license": "MPL 1.1/GPL 2.0/LGPL 2.1",
     "author": "Achim Abeling",
-    "version": "0.1",
+    "version": "0.2",
     "fullName": "ping-webapp",
     "id": "jid1-usGvSUSQ0GVtUQ",
     "description": "pings urls to keep web applications sessions alive"
